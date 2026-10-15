@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Credit Card Fraud Detection — React + FastAPI
 
 This is a starter project for your trained Random Forest model. It does **not** contain a fake model or hardcoded predictions. You must export your actual model and held-out test samples from Colab, then place them in `backend/artifacts/`.
@@ -99,3 +100,7 @@ Open the URL printed by Vite, normally http://localhost:5173.
 - A model score is not a guaranteed calibrated real-world fraud probability.
 - This is an educational demo, not a real payment authorization system.
 - The backend checks feature names and count before prediction.
+=======
+# sentinel-fraud-detection
+Machine learning-based credit card fraud detection platform using FastAPI and React.
+>>>>>>> 758046ae273b450c6148afea130d08388aa423ef
