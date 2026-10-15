@@ -1,0 +1,1642 @@
+/*
+ * Credit Card Fraud Detection dashboard stylesheet
+ * Comments explain the purpose of each CSS rule and responsive section.
+ * These comments do not change how the page looks or behaves.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+/* Set global fonts and the main text/background colors used throughout the app. */
+:root {
+  font-family:'DM Sans',Arial,sans-serif;
+  color:#14294f;
+  background:#f8f9fb;
+  font-synthesis:none;
+  text-rendering:optimizeLegibility;
+}
+/* Apply border-box sizing so element dimensions include padding and borders. */
+* {
+  box-sizing:border-box;
+}
+/* Remove the browser’s default page margin and set the page background and minimum width. */
+body {
+  margin:0;
+  min-width:320px;
+  background:#f8f9fb;
+}
+/* Make form controls inherit the app font. */
+button,input {
+  font:inherit;
+}
+/* Show a pointer on buttons and dim/disable the pointer when a button is disabled. */
+button {
+  cursor:pointer;
+}
+/* Style button:disabled. */
+button:disabled {
+  opacity:.55;
+  cursor:not-allowed;
+}
+/* Ensure the application wrapper fills at least the viewport height. */
+.sentinel-app {
+  min-height:100vh;
+}
+/* Style the orange sticky header and align its brand, navigation, and actions. */
+.topbar {
+  height:78px;
+  background:linear-gradient(110deg,#f05a0a 0%,#d83d00 58%,#a72a00 100%);
+  color:white;
+  display:flex;
+  align-items:center;
+  padding:0 28px;
+  gap:30px;
+  box-shadow:0 5px 18px #a7351018;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.top-brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:260px;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.brand-shield {
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  background:#ffffff20;
+  border:1px solid #ffffff55;
+  display:grid;
+  place-items:center;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.top-brand strong {
+  display:block;
+  font:800 24px 'Manrope',sans-serif;
+  letter-spacing:-.8px;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.top-brand span {
+  display:block;
+  font-size:11px;
+  opacity:.86;
+  margin-top:1px;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.top-nav {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex:1;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.top-nav-link {
+  border:1px solid transparent;
+  background:transparent;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:11px 13px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:600;
+  white-space:nowrap;
+}
+/* Define the visual feedback shown when the pointer hovers over this element. */
+.top-nav-link:hover,.top-nav-link.active {
+  background:#ffffff20;
+  border-color:#ffffff35;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.top-actions {
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.api-pill {
+  height:37px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 12px;
+  border:1px solid #ffffff3d;
+  border-radius:20px;
+  font-size:11px;
+  white-space:nowrap;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.api-pill.connected {
+  background:#ffffff15;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.api-pill.disconnected {
+  background:#7d160c55;
+}
+/* Style .dot. */
+.dot {
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#a1a1aa;
+  flex:none;
+}
+/* Style .dot.green. */
+.dot.green {
+  background:#20b66b;
+}
+/* Style .dot.red. */
+.dot.red {
+  background:#e34e4e;
+}
+/* Style an icon container or SVG icon. */
+.icon-button {
+  width:36px;
+  height:36px;
+  border:1px solid #ffffff35;
+  border-radius:10px;
+  background:transparent;
+  color:inherit;
+  display:grid;
+  place-items:center;
+}
+/* Style .notification. */
+.notification {
+  border:0;
+  border-left:1px solid #ffffff35;
+  border-radius:0;
+  padding-left:15px;
+  width:43px;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.profile-avatar {
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:#fff;
+  color:#17315a;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+}
+/* Style the top navigation bar, brand identity, and account/status controls. */
+.profile-name {
+  font-size:12px;
+  font-weight:600;
+  white-space:nowrap;
+}
+/* Style navigation controls used on smaller screens. */
+.mobile-menu,.mobile-nav {
+  display:none;
+}
+/* Lay out the sidebar beside the main content. */
+.page-layout {
+  display:grid;
+  grid-template-columns:250px minmax(0,1fr);
+  min-height:calc(100vh - 78px);
+}
+/* Style the left navigation sidebar. */
+.sidebar {
+  background:#fff;
+  border-right:1px solid #e7eaf0;
+  padding:27px 17px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-caption {
+  font-size:10px;
+  letter-spacing:1.4px;
+  color:#8996aa;
+  font-weight:700;
+  margin:0 12px 12px;
+}
+/* Style .side-link. */
+.side-link {
+  height:45px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-align:left;
+  padding:0 12px;
+  background:transparent;
+  border:1px solid transparent;
+  border-radius:10px;
+  color:#354766;
+  font-size:12px;
+  font-weight:600;
+}
+/* Define the visual feedback shown when the pointer hovers over this element. */
+.side-link:hover {
+  background:#fff6f0;
+}
+/* Style .side-link.selected. */
+.side-link.selected {
+  background:#fff0e6;
+  border-color:#ffdfca;
+  color:#d94708;
+}
+/* Style .side-chevron. */
+.side-chevron {
+  margin-left:auto;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-promo {
+  margin-top:40px;
+  background:linear-gradient(155deg,#fff0e1,#fffaf6);
+  border:1px solid #ffe0c9;
+  border-radius:16px;
+  padding:17px 15px;
+  color:#183056;
+  overflow:hidden;
+  position:relative;
+}
+/* Style .promo-logo. */
+.promo-logo {
+  width:37px;
+  height:37px;
+  border-radius:11px;
+  background:#ffdfc7;
+  color:#e24b08;
+  display:grid;
+  place-items:center;
+  margin-bottom:12px;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-promo>strong {
+  font:800 18px 'Manrope',sans-serif;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-promo p {
+  font-size:11px;
+  line-height:1.55;
+  color:#64748b;
+  margin:6px 0 17px;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-promo ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:grid;
+  gap:10px;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-promo li {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:10px;
+  color:#435574;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-promo li svg {
+  color:#e85a17;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-bottom {
+  margin-top:auto;
+  border:1px solid #e7ebf1;
+  border-radius:12px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-bottom b {
+  display:block;
+  font-size:11px;
+}
+/* Style the sidebar navigation and promotional information. */
+.sidebar-bottom small {
+  display:block;
+  color:#7d8aa0;
+  font-size:10px;
+  margin-top:3px;
+}
+/* Give the main page content padding and allow it to shrink without overflow. */
+.main-content {
+  min-width:0;
+  padding:26px 28px 16px;
+}
+/* Style .breadcrumb. */
+.breadcrumb {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#8290a5;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.15px;
+  margin:0 0 9px;
+}
+/* Style .breadcrumb span. */
+.breadcrumb span {
+  color:#455875;
+}
+/* Style .page-heading. */
+.page-heading {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:20px;
+}
+/* Style .page-heading h1. */
+.page-heading h1 {
+  font:800 25px 'Manrope',sans-serif;
+  letter-spacing:-.9px;
+  margin:0;
+  color:#172b50;
+}
+/* Style .page-heading p. */
+.page-heading p {
+  font-size:12px;
+  color:#75849b;
+  margin:7px 0 0;
+}
+/* Style .secondary-button,.primary-button. */
+.secondary-button,.primary-button {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-radius:9px;
+  padding:10px 13px;
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+}
+/* Style .secondary-button. */
+.secondary-button {
+  border:1px solid #dce3ed;
+  background:#fff;
+  color:#354766;
+}
+/* Define the visual feedback shown when the pointer hovers over this element. */
+.secondary-button:hover {
+  border-color:#f2a06f;
+  background:#fffaf6;
+}
+/* Style .primary-button. */
+.primary-button {
+  border:1px solid #e94e0a;
+  background:#e94e0a;
+  color:white;
+  box-shadow:0 3px 8px #e94e0a22;
+}
+/* Define the visual feedback shown when the pointer hovers over this element. */
+.primary-button:hover {
+  background:#cf3e00;
+}
+/* Style the error message banner and its controls. */
+.error-banner {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:12px 14px;
+  border:1px solid #fecaca;
+  background:#fff1f2;
+  color:#a32727;
+  border-radius:11px;
+  margin-bottom:16px;
+  font-size:12px;
+}
+/* Style the error message banner and its controls. */
+.error-banner p {
+  margin:4px 0 0;
+  line-height:1.45;
+}
+/* Style the error message banner and its controls. */
+.error-banner button {
+  margin-left:auto;
+  background:transparent;
+  border:0;
+  color:inherit;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-banner {
+  min-height:150px;
+  border:1px solid #ffe5d4;
+  background:linear-gradient(100deg,#fffaf6 0%,#fff4eb 62%,#ffe3ce 100%);
+  border-radius:17px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  padding:25px 32px;
+  margin-bottom:16px;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-copy {
+  position:relative;
+  z-index:2;
+}
+/* Style .eyebrow. */
+.eyebrow {
+  font-size:10px;
+  letter-spacing:1.1px;
+  font-weight:800;
+  color:#e94d08;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-copy h2 {
+  font:800 clamp(22px,2.1vw,31px) 'Manrope',sans-serif;
+  letter-spacing:-1.15px;
+  margin:9px 0 7px;
+  color:#12264c;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-copy h2 em {
+  font-style:normal;
+  color:#e84c08;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-copy p {
+  font-size:12px;
+  color:#475b7b;
+  margin:0;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-art {
+  position:absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  width:37%;
+  overflow:hidden;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-orbit {
+  position:absolute;
+  border:1px solid #f5b88e77;
+  border-radius:50%;
+  width:400px;
+  height:160px;
+  right:-55px;
+  top:22px;
+  transform:rotate(-11deg);
+}
+/* Style .orbit-two. */
+.orbit-two {
+  width:460px;
+  height:190px;
+  right:-68px;
+  top:7px;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-card-art {
+  position:absolute;
+  z-index:1;
+  right:95px;
+  top:34px;
+  width:130px;
+  height:82px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#ff8c36,#d94706);
+  box-shadow:0 13px 20px #d94b0b30;
+  color:#ffe5c9;
+  transform:rotate(-11deg);
+  padding:13px;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-card-art>svg {
+  position:absolute;
+  right:12px;
+  top:12px;
+  opacity:.9;
+}
+/* Style .card-lines. */
+.card-lines {
+  position:absolute;
+  bottom:13px;
+  left:13px;
+  display:flex;
+  gap:5px;
+}
+/* Style .card-lines i. */
+.card-lines i {
+  display:block;
+  width:14px;
+  height:7px;
+  border-radius:2px;
+  background:#ffd0a5;
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-shield-art {
+  position:absolute;
+  z-index:2;
+  right:46px;
+  top:28px;
+  width:77px;
+  height:89px;
+  display:grid;
+  place-items:center;
+  color:#fff8f0;
+  filter:drop-shadow(0 5px 3px #c9471235);
+}
+/* Style the dashboard’s hero banner and its decorative artwork. */
+.hero-shield-art svg {
+  width:73px;
+  height:73px;
+  stroke:#fff8ed;
+  fill:#f77725;
+  stroke-width:1.5;
+}
+/* Arrange the metric summary cards in four columns. */
+.metrics-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:17px;
+}
+/* Style the dashboard metric cards and their values. */
+.metric-card {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#fff;
+  border:1px solid #e8ebf0;
+  border-radius:14px;
+  padding:17px 16px;
+  min-height:104px;
+  box-shadow:0 3px 12px #18305605;
+}
+/* Style an icon container or SVG icon. */
+.icon-tile {
+  width:43px;
+  height:43px;
+  border-radius:12px;
+  background:#fff0e6;
+  color:#e84e08;
+  display:grid;
+  place-items:center;
+  flex:none;
+}
+/* Style an icon container or SVG icon. */
+.icon-tile.red {
+  background:#fff0ef;
+  color:#dc3730;
+}
+/* Style an icon container or SVG icon. */
+.icon-tile.green {
+  background:#e7f8ee;
+  color:#17945a;
+}
+/* Style an icon container or SVG icon. */
+.icon-tile.blue {
+  background:#edf1ff;
+  color:#3e5de4;
+}
+/* Style the dashboard metric cards and their values. */
+.metric-copy {
+  min-width:0;
+  display:grid;
+  gap:4px;
+}
+/* Style the dashboard metric cards and their values. */
+.metric-copy>span {
+  font-size:11px;
+  color:#526581;
+}
+/* Style the dashboard metric cards and their values. */
+.metric-copy strong {
+  font:800 21px 'Manrope',sans-serif;
+  color:#14294f;
+  letter-spacing:-.5px;
+}
+/* Style the dashboard metric cards and their values. */
+.metric-copy small {
+  font-size:9px;
+  color:#8a97aa;
+  line-height:1.35;
+}
+/* Place the transaction table and assessment panel side by side. */
+.dashboard-grid {
+  display:grid;
+  grid-template-columns:minmax(0,1.65fr) minmax(320px,.82fr);
+  gap:16px;
+  align-items:stretch;
+}
+/* Style a dashboard content panel or one of its inner elements. */
+.panel {
+  background:#fff;
+  border:1px solid #e7ebf1;
+  border-radius:15px;
+  padding:17px;
+  box-shadow:0 3px 13px #20334e05;
+  min-width:0;
+}
+/* Keep the transaction panel at a fixed height and stack its sections vertically. */
+.transactions-panel {
+  padding:17px 16px 14px;
+}
+/* Style a dashboard content panel or one of its inner elements. */
+.panel-heading {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  margin-bottom:17px;
+  min-width:0;
+}
+/* Style .heading-icon. */
+.heading-icon {
+  width:37px;
+  height:37px;
+  border-radius:11px;
+  background:#fff0e6;
+  color:#e64b08;
+  display:grid;
+  place-items:center;
+  flex:none;
+}
+/* Style .heading-icon.orange-icon. */
+.heading-icon.orange-icon {
+  background:#fff0e6;
+}
+/* Style a dashboard content panel or one of its inner elements. */
+.panel-heading h2 {
+  font:800 14px 'Manrope',sans-serif;
+  margin:0;
+  color:#172b50;
+  letter-spacing:-.2px;
+}
+/* Style a dashboard content panel or one of its inner elements. */
+.panel-heading p {
+  font-size:10px;
+  line-height:1.45;
+  color:#8290a5;
+  margin:4px 0 0;
+}
+/* Style .test-set-tag. */
+.test-set-tag {
+  margin-left:auto;
+  background:#fff0e5;
+  color:#d94708;
+  border:1px solid #ffe0cb;
+  padding:8px 10px;
+  border-radius:8px;
+  font-size:9px;
+  font-weight:800;
+  white-space:nowrap;
+}
+/* Style the transaction table controls and their layout. */
+.table-toolbar {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+/* Style the transaction table controls and their layout. */
+.search-box {
+  height:38px;
+  border:1px solid #dfe5ee;
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:0 11px;
+  flex:1;
+  min-width:0;
+  color:#8492a8;
+}
+/* Highlight this input/control while it has keyboard or pointer focus. */
+.search-box:focus-within {
+  border-color:#f08c55;
+  box-shadow:0 0 0 3px #fff0e6;
+}
+/* Style the transaction table controls and their layout. */
+.search-box input {
+  width:100%;
+  border:0;
+  outline:0;
+  color:#263b5e;
+  background:transparent;
+  font-size:11px;
+  min-width:0;
+}
+/* Style placeholder text inside the input. */
+.search-box input::placeholder {
+  color:#9ba7b7;
+}
+/* Style .record-count. */
+.record-count {
+  font-size:9px;
+  color:#8996a8;
+  white-space:nowrap;
+}
+/* Allow the table container to scroll when its contents are wider or taller than available space. */
+.table-wrap {
+  width:100%;
+  overflow:auto;
+  border:1px solid #e4e9f0;
+  border-radius:10px;
+}
+/* Make the table fill its container, collapse borders, and keep cells on one line. */
+table {
+  width:100%;
+  border-collapse:collapse;
+  text-align:left;
+  white-space:nowrap;
+}
+/* Give the table header row a light background. */
+thead {
+  background:#f7f8fa;
+}
+/* Style table headings with compact uppercase labels. */
+th {
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.35px;
+  color:#7b8aa1;
+  padding:12px 10px;
+  font-weight:800;
+}
+/* Style table cells and separate rows with a subtle border. */
+td {
+  font-size:10px;
+  color:#4c5f7d;
+  padding:11px 10px;
+  border-top:1px solid #edf0f4;
+}
+/* Style td b. */
+td b {
+  color:#243958;
+  font-weight:700;
+}
+/* Style transaction rows and their hover/selected states. */
+tbody tr {
+  cursor:pointer;
+  transition:background .15s;
+}
+/* Style transaction rows and their hover/selected states. */
+tbody tr:hover {
+  background:#fff9f4;
+}
+/* Style transaction rows and their hover/selected states. */
+tbody tr.row-selected {
+  background:#fff0e4;
+}
+/* Style transaction rows and their hover/selected states. */
+tbody tr.row-selected td:first-child {
+  box-shadow:inset 3px 0 #e94e0a;
+}
+/* Style .row-action. */
+.row-action {
+  display:grid;
+  place-items:center;
+  width:27px;
+  height:27px;
+  border:1px solid transparent;
+  border-radius:7px;
+  background:transparent;
+  color:#9aa6b7;
+}
+/* Define the visual feedback shown when the pointer hovers over this element. */
+.row-selected .row-action,.row-action:hover {
+  border-color:#ffd8bf;
+  background:#fff;
+  color:#e64b08;
+}
+/* Style the empty state shown when there is no selected or matching data. */
+.empty-state {
+  text-align:center;
+  padding:30px;
+  color:#8a97aa;
+}
+/* Style the transaction table controls and their layout. */
+.table-footer {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-top:13px;
+}
+/* Style the transaction table controls and their layout. */
+.table-footer>span {
+  font-size:10px;
+  color:#7c8ba1;
+}
+/* Style the transaction table controls and their layout. */
+.table-footer>span b {
+  color:#263a5c;
+}
+/* Style the fraud assessment result, status, and score display. */
+.assessment-panel {
+  padding:17px;
+}
+/* Style the fraud assessment result, status, and score display. */
+.assessment-panel .panel-heading {
+  margin-bottom:14px;
+}
+/* Style the fraud assessment result, status, and score display. */
+.assessment-status {
+  border-radius:11px;
+  padding:14px;
+  border:1px solid;
+}
+/* Style the fraud assessment result, status, and score display. */
+.assessment-status.legitimate {
+  background:#f2fbf5;
+  border-color:#bcebcf;
+}
+/* Style the fraud assessment result, status, and score display. */
+.assessment-status.fraud {
+  background:#fff4f3;
+  border-color:#ffd0cc;
+}
+/* Style the fraud assessment result, status, and score display. */
+.status-main {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+/* Style the fraud assessment result, status, and score display. */
+.status-symbol {
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  flex:none;
+  background:#fff;
+  color:#168d55;
+}
+/* Style the fraud assessment result, status, and score display. */
+.fraud .status-symbol {
+  color:#dc3932;
+}
+/* Style the fraud assessment result, status, and score display. */
+.status-main>div:nth-child(2) {
+  min-width:0;
+}
+/* Style the fraud assessment result, status, and score display. */
+.status-main span,.score-block span {
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.7px;
+  color:#78917f;
+  display:block;
+}
+/* Style the fraud assessment result, status, and score display. */
+.fraud .status-main span,.fraud .score-block span {
+  color:#a77a78;
+}
+/* Style the fraud assessment result, status, and score display. */
+.status-main h3 {
+  font:800 15px 'Manrope',sans-serif;
+  margin:5px 0 3px;
+  color:#157849;
+  letter-spacing:-.35px;
+}
+/* Style the fraud assessment result, status, and score display. */
+.fraud .status-main h3 {
+  color:#c92f2a;
+}
+/* Style the fraud assessment result, status, and score display. */
+.status-main small {
+  font-size:10px;
+  color:#7888a0;
+}
+/* Style the fraud assessment result, status, and score display. */
+.score-block {
+  margin-left:auto;
+  text-align:right;
+}
+/* Style the fraud assessment result, status, and score display. */
+.score-block strong {
+  display:block;
+  font:800 21px 'Manrope',sans-serif;
+  color:#14294f;
+  margin-top:6px;
+  letter-spacing:-.5px;
+}
+/* Style the fraud assessment result, status, and score display. */
+.score-track {
+  height:5px;
+  border-radius:10px;
+  background:#d8efe1;
+  overflow:hidden;
+  margin:13px 0 9px;
+}
+/* Style the fraud assessment result, status, and score display. */
+.fraud .score-track {
+  background:#f7d9d6;
+}
+/* Style the fraud assessment result, status, and score display. */
+.score-track span {
+  display:block;
+  height:100%;
+  border-radius:10px;
+  background:#1da563;
+}
+/* Style the fraud assessment result, status, and score display. */
+.fraud .score-track span {
+  background:#dc3730;
+}
+/* Style explanatory notes about the model threshold and its limitations. */
+.threshold-note {
+  font-size:9px;
+  color:#74859b;
+  line-height:1.5;
+  margin:0;
+}
+/* Style the comparison between the model prediction and the known label in the sample data. */
+.reference-label {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:12px;
+  border:1px solid;
+  border-radius:10px;
+  padding:13px;
+}
+/* Style the comparison between the model prediction and the known label in the sample data. */
+.reference-label.match {
+  background:#f8fbf9;
+  border-color:#e1eee5;
+}
+/* Style the comparison between the model prediction and the known label in the sample data. */
+.reference-label.mismatch {
+  background:#fff4f3;
+  border-color:#ffd3cf;
+}
+/* Style the comparison between the model prediction and the known label in the sample data. */
+.reference-label span {
+  display:block;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.55px;
+  color:#8a96a7;
+  margin-bottom:5px;
+}
+/* Style the comparison between the model prediction and the known label in the sample data. */
+.reference-label strong {
+  font:800 15px 'Manrope',sans-serif;
+  color:#14294f;
+}
+/* Style the comparison between the model prediction and the known label in the sample data. */
+.reference-label.mismatch strong {
+  color:#c92f2a;
+}
+/* Style the comparison between the model prediction and the known label in the sample data. */
+.reference-label> b {
+  font-size:9px;
+  padding:7px 9px;
+  border-radius:7px;
+  background:#e4f7ea;
+  color:#16834f;
+  white-space:nowrap;
+}
+/* Style the comparison between the model prediction and the known label in the sample data. */
+.reference-label.mismatch>b {
+  background:#ffe0de;
+  color:#c92f2a;
+}
+/* Style the selected transaction’s detail information. */
+.transaction-details {
+  margin-top:12px;
+  border:1px solid #e6eaf0;
+  border-radius:10px;
+  padding:12px;
+}
+/* Style the selected transaction’s detail information. */
+.details-title {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  font-weight:800;
+  color:#263b5c;
+}
+/* Style an icon container or SVG icon. */
+.details-title svg:last-child {
+  margin-left:auto;
+  color:#8290a5;
+}
+/* Style the selected transaction’s detail information. */
+.details-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin-top:17px;
+}
+/* Style the selected transaction’s detail information. */
+.details-grid span {
+  display:block;
+  color:#8b98aa;
+  font-size:9px;
+  margin-bottom:6px;
+}
+/* Style the selected transaction’s detail information. */
+.details-grid b {
+  font-size:10px;
+  color:#203655;
+  overflow-wrap:anywhere;
+}
+/* Style a dashboard content panel or one of its inner elements. */
+.panel-disclaimer {
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+  color:#7c8ba1;
+  font-size:9px;
+  line-height:1.55;
+}
+/* Style a dashboard content panel or one of its inner elements. */
+.panel-disclaimer svg {
+  flex:none;
+}
+/* Style .result-placeholder. */
+.result-placeholder {
+  border:1px dashed #dfe5ed;
+  border-radius:12px;
+  min-height:250px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:22px;
+}
+/* Style the empty state shown when there is no selected or matching data. */
+.placeholder-shield {
+  width:54px;
+  height:54px;
+  border-radius:16px;
+  background:#fff0e6;
+  color:#e84e08;
+  display:grid;
+  place-items:center;
+}
+/* Style .result-placeholder h3. */
+.result-placeholder h3 {
+  font:800 14px 'Manrope',sans-serif;
+  margin:14px 0 6px;
+}
+/* Style .result-placeholder p. */
+.result-placeholder p {
+  font-size:11px;
+  line-height:1.55;
+  color:#7b8aa0;
+  max-width:250px;
+  margin:0 0 15px;
+}
+/* Style the manual transaction form and its feature inputs. */
+.manual-panel {
+  max-width:900px;
+}
+/* Style the manual transaction form and its feature inputs. */
+.manual-panel form {
+  display:grid;
+  gap:18px;
+}
+/* Style the manual transaction form and its feature inputs. */
+.manual-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+/* Style the manual transaction form and its feature inputs. */
+.manual-grid label,.feature-grid label {
+  display:grid;
+  gap:7px;
+  color:#526581;
+  font-size:11px;
+  font-weight:700;
+}
+/* Style the manual transaction form and its feature inputs. */
+.manual-grid input,.feature-grid input {
+  height:40px;
+  width:100%;
+  border:1px solid #dfe5ee;
+  border-radius:8px;
+  padding:0 11px;
+  outline:0;
+  color:#263b5e;
+  background:#fff;
+}
+/* Highlight this input/control while it has keyboard or pointer focus. */
+.manual-grid input:focus,.feature-grid input:focus {
+  border-color:#ef8b55;
+  box-shadow:0 0 0 3px #fff0e6;
+}
+/* Style the manual transaction form and its feature inputs. */
+.feature-details {
+  border:1px solid #e6eaf0;
+  border-radius:10px;
+  padding:13px;
+}
+/* Style the manual transaction form and its feature inputs. */
+.feature-details summary {
+  cursor:pointer;
+  font-size:12px;
+  font-weight:800;
+  color:#243958;
+}
+/* Style the manual transaction form and its feature inputs. */
+.feature-details summary span {
+  color:#8b98aa;
+  font-size:10px;
+  font-weight:500;
+  margin-left:8px;
+}
+/* Style the manual transaction form and its feature inputs. */
+.feature-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin-top:16px;
+}
+/* Style the manual transaction form and its feature inputs. */
+.feature-grid label {
+  font-size:10px;
+}
+/* Style the manual transaction form and its feature inputs. */
+.feature-grid input {
+  height:35px;
+}
+/* Style the manual transaction form and its feature inputs. */
+.manual-panel .primary-button {
+  justify-self:start;
+}
+/* Style model performance metrics and detail lists. */
+.performance-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+/* Style the dashboard metric cards and their values. */
+.metric-list,.detail-list {
+  display:grid;
+  gap:0;
+}
+/* Style the dashboard metric cards and their values. */
+.metric-list>div,.detail-list>div {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:14px 0;
+  border-bottom:1px solid #edf0f4;
+  font-size:12px;
+}
+/* Style the dashboard metric cards and their values. */
+.metric-list>div span,.detail-list>div span {
+  color:#718099;
+}
+/* Style the dashboard metric cards and their values. */
+.metric-list>div b,.detail-list>div b {
+  color:#1b3154;
+}
+/* Style .small-disclaimer. */
+.small-disclaimer {
+  font-size:10px;
+  line-height:1.6;
+  color:#8390a3;
+  margin:17px 0 0;
+}
+/* Style the project information/about section. */
+.about-panel {
+  max-width:800px;
+  padding:28px;
+}
+/* Style the project information/about section. */
+.about-panel h2 {
+  font:800 22px 'Manrope',sans-serif;
+  margin:15px 0 8px;
+}
+/* Style the project information/about section. */
+.about-panel>p {
+  font-size:13px;
+  line-height:1.7;
+  color:#687991;
+  max-width:650px;
+}
+/* Style the project information/about section. */
+.about-note {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:13px;
+  background:#fff8f1;
+  border:1px solid #ffe3cf;
+  border-radius:10px;
+  color:#815b42;
+  font-size:11px;
+  line-height:1.6;
+  margin-top:20px;
+}
+/* Style an icon container or SVG icon. */
+.about-note svg {
+  flex:none;
+}
+/* Align the footer content and apply muted, small text. */
+.footer {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:18px 2px 0;
+  color:#9aa5b5;
+  font-size:9px;
+}
+/* Style .footer>span:last-child. */
+.footer>span:last-child {
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+/* Animate loading icons with a continuous spin. */
+.spin {
+  animation:spin 1s linear infinite;
+}
+/* Define the rotation animation used by loading icons. */
+@keyframes spin {
+  /* Style to. */
+  to {
+    transform:rotate(360deg);
+  }
+}
+/* Responsive adjustments for medium-sized screens (1250px and below). */
+@media(max-width:1250px) {
+  /* Style the orange sticky header and align its brand, navigation, and actions. */
+  .topbar {
+    gap:14px;
+    padding:0 18px;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .top-brand {
+    min-width:190px;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .top-nav-link {
+    padding:10px 9px;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .profile-name {
+    display:none;
+  }
+  /* Lay out the sidebar beside the main content. */
+  .page-layout {
+    grid-template-columns:220px minmax(0,1fr);
+  }
+  /* Give the main page content padding and allow it to shrink without overflow. */
+  .main-content {
+    padding:23px 20px;
+  }
+  /* Place the transaction table and assessment panel side by side. */
+  .dashboard-grid {
+    grid-template-columns:minmax(0,1.4fr) minmax(300px,.9fr);
+  }
+  /* Style the dashboard metric cards and their values. */
+  .metric-card {
+    padding:14px 12px;
+    gap:9px;
+  }
+  /* Style an icon container or SVG icon. */
+  .icon-tile {
+    width:38px;
+    height:38px;
+  }
+  /* Style the dashboard metric cards and their values. */
+  .metric-copy strong {
+    font-size:18px;
+  }
+}
+/* Responsive layout for tablets and smaller screens (980px and below). */
+@media(max-width:980px) {
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .top-nav {
+    display:none;
+  }
+  /* Style the orange sticky header and align its brand, navigation, and actions. */
+  .topbar {
+    height:70px;
+  }
+  /* Style navigation controls used on smaller screens. */
+  .mobile-menu {
+    display:grid;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .top-brand {
+    min-width:0;
+    flex:1;
+  }
+  /* Lay out the sidebar beside the main content. */
+  .page-layout {
+    grid-template-columns:1fr;
+  }
+  /* Style the left navigation sidebar. */
+  .sidebar {
+    display:none;
+  }
+  /* Style navigation controls used on smaller screens. */
+  .mobile-nav {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px;
+    padding:12px;
+    background:white;
+    border-bottom:1px solid #e7ebf1;
+  }
+  /* Style navigation controls used on smaller screens. */
+  .mobile-nav button {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:11px;
+    border:1px solid #e7ebf1;
+    background:white;
+    border-radius:8px;
+    color:#354766;
+    font-size:11px;
+    text-align:left;
+  }
+  /* Place the transaction table and assessment panel side by side. */
+  .dashboard-grid {
+    grid-template-columns:1fr;
+  }
+  /* Arrange the metric summary cards in four columns. */
+  .metrics-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  /* Style the fraud assessment result, status, and score display. */
+  .assessment-panel {
+    min-width:0;
+  }
+  /* Style the dashboard’s hero banner and its decorative artwork. */
+  .hero-art {
+    width:32%;
+    opacity:.8;
+  }
+  /* Style the dashboard’s hero banner and its decorative artwork. */
+  .hero-copy {
+    max-width:72%;
+  }
+}
+/* Responsive layout for phones (600px and below). */
+@media(max-width:600px) {
+  /* Style the orange sticky header and align its brand, navigation, and actions. */
+  .topbar {
+    padding:0 12px;
+    gap:9px;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .top-brand strong {
+    font-size:20px;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .brand-shield {
+    width:37px;
+    height:37px;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .top-brand span {
+    font-size:9px;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .top-actions {
+    gap:7px;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .api-pill {
+    padding:0 8px;
+    font-size:0;
+    gap:6px;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .api-pill svg {
+    display:none;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .api-pill .dot {
+    width:8px;
+    height:8px;
+  }
+  /* Style .notification. */
+  .notification {
+    display:none;
+  }
+  /* Style the top navigation bar, brand identity, and account/status controls. */
+  .profile-avatar {
+    width:29px;
+    height:29px;
+  }
+  /* Give the main page content padding and allow it to shrink without overflow. */
+  .main-content {
+    padding:18px 12px;
+  }
+  /* Style .page-heading. */
+  .page-heading {
+    align-items:flex-start;
+  }
+  /* Style .page-heading h1. */
+  .page-heading h1 {
+    font-size:21px;
+  }
+  /* Style .page-heading p. */
+  .page-heading p {
+    font-size:11px;
+    line-height:1.5;
+  }
+  /* Style .page-heading .secondary-button. */
+  .page-heading .secondary-button {
+    padding:9px;
+    font-size:0;
+  }
+  /* Style an icon container or SVG icon. */
+  .page-heading .secondary-button svg {
+    width:16px;
+    height:16px;
+  }
+  /* Style the dashboard’s hero banner and its decorative artwork. */
+  .hero-banner {
+    padding:21px 18px;
+    min-height:145px;
+  }
+  /* Style the dashboard’s hero banner and its decorative artwork. */
+  .hero-copy {
+    max-width:100%;
+  }
+  /* Style the dashboard’s hero banner and its decorative artwork. */
+  .hero-copy h2 {
+    font-size:22px;
+    max-width:300px;
+  }
+  /* Style the dashboard’s hero banner and its decorative artwork. */
+  .hero-copy p {
+    max-width:290px;
+    line-height:1.5;
+  }
+  /* Style the dashboard’s hero banner and its decorative artwork. */
+  .hero-art {
+    opacity:.16;
+    width:55%;
+  }
+  /* Arrange the metric summary cards in four columns. */
+  .metrics-grid {
+    gap:9px;
+  }
+  /* Style the dashboard metric cards and their values. */
+  .metric-card {
+    padding:12px 10px;
+    min-height:94px;
+    gap:8px;
+  }
+  /* Style the dashboard metric cards and their values. */
+  .metric-copy>span {
+    font-size:10px;
+  }
+  /* Style the dashboard metric cards and their values. */
+  .metric-copy strong {
+    font-size:17px;
+  }
+  /* Style the dashboard metric cards and their values. */
+  .metric-copy small {
+    font-size:8px;
+  }
+  /* Style an icon container or SVG icon. */
+  .icon-tile {
+    width:34px;
+    height:34px;
+    border-radius:9px;
+  }
+  /* Style a dashboard content panel or one of its inner elements. */
+  .panel {
+    padding:13px;
+  }
+  /* Style a dashboard content panel or one of its inner elements. */
+  .panel-heading {
+    gap:8px;
+  }
+  /* Style a dashboard content panel or one of its inner elements. */
+  .panel-heading h2 {
+    font-size:13px;
+  }
+  /* Style a dashboard content panel or one of its inner elements. */
+  .panel-heading p {
+    font-size:9px;
+  }
+  /* Style .test-set-tag. */
+  .test-set-tag {
+    font-size:8px;
+    padding:7px;
+  }
+  /* Style the transaction table controls and their layout. */
+  .table-toolbar {
+    flex-wrap:wrap;
+  }
+  /* Style the transaction table controls and their layout. */
+  .search-box {
+    flex-basis:100%;
+  }
+  /* Style .record-count. */
+  .record-count {
+    margin-left:auto;
+  }
+  /* Allow the table container to scroll when its contents are wider or taller than available space. */
+  .table-wrap {
+    overflow-x:auto;
+  }
+  /* Make the table fill its container, collapse borders, and keep cells on one line. */
+  table {
+    min-width:470px;
+  }
+  /* Style the transaction table controls and their layout. */
+  .table-footer {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  /* Style the transaction table controls and their layout. */
+  .table-footer .primary-button {
+    width:100%;
+  }
+  /* Style the fraud assessment result, status, and score display. */
+  .status-main {
+    gap:8px;
+  }
+  /* Style the fraud assessment result, status, and score display. */
+  .status-main h3 {
+    font-size:13px;
+  }
+  /* Style the fraud assessment result, status, and score display. */
+  .score-block strong {
+    font-size:17px;
+  }
+  /* Style the fraud assessment result, status, and score display. */
+  .score-block span {
+    font-size:7px;
+  }
+  /* Style the selected transaction’s detail information. */
+  .details-grid {
+    gap:5px;
+  }
+  /* Style the selected transaction’s detail information. */
+  .details-grid span {
+    font-size:8px;
+  }
+  /* Style the selected transaction’s detail information. */
+  .details-grid b {
+    font-size:9px;
+  }
+  /* Style model performance metrics and detail lists. */
+  .performance-grid {
+    grid-template-columns:1fr;
+  }
+  /* Style the manual transaction form and its feature inputs. */
+  .feature-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  /* Style the manual transaction form and its feature inputs. */
+  .manual-grid {
+    grid-template-columns:1fr;
+  }
+  /* Align the footer content and apply muted, small text. */
+  .footer {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  /* Style the project information/about section. */
+  .about-panel {
+    padding:18px;
+  }
+}
+/* Keep the transaction panel at a fixed height */
+/* Keep the transaction panel at a fixed height and stack its sections vertically. */
+.transactions-panel {
+  height: 520px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+/* Keep the heading and search bar fixed */
+/* Keep the title, search toolbar, and footer from shrinking while the table scrolls. */
+.transactions-panel .panel-heading,
+.transactions-panel .table-toolbar,
+.transactions-panel .table-footer {
+  flex-shrink: 0;
+}
+/* Scroll only the transaction table */
+/* Make the transaction table area scroll internally while preserving the surrounding panel. */
+.transactions-panel .table-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+/* Keep table headings visible while scrolling */
+/* Keep table column headings visible at the top while scrolling. */
+.transactions-panel thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f8fafc;
+}

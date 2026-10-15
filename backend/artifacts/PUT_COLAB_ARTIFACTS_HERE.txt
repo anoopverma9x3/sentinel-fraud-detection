@@ -1,0 +1,6 @@
+Copy these files here from your Google Drive export folder:
+- fraud_model.joblib
+- threshold.json
+- test_samples.csv
+
+Do not start predictions until all three are present.
